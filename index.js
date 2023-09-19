@@ -7,6 +7,8 @@ db.connectToDatabase().then(() => {
     app.listen(PORT, () => {
         console.log(`App Running on PORT :: ${PORT}`);
     })
+}).catch((error) => {
+    console.log(error.message)
 })
 
 app.use("/", serverRoutes);
