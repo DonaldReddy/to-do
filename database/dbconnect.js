@@ -8,6 +8,7 @@ var password = process.env.mongo_password;
 async function connectToDatabase() {
     const password = process.env.mongo_password;
     try {
+        console.log(password)
         await mongoose.connect(`mongodb+srv://donaldreddy2712:${password}@cluster0.ua9gngy.mongodb.net/to-do`);
         await List.findOne({ list_name: "Home" }).then(async (data) => {
             if (!data) {
