@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <title>To-Do</title>
+</head>
+
+<body>
+
+    <% if(locals.custom_lists) {%>
+    <div class="list-names">
+        <% custom_lists.forEach((ele)=>{%>
+        <div class="list">
+            <form class="list" action="/list" method="GET">
+                <button name="list_name" value="<%= ele.list_name %>"><%= ele.list_name %></button>
+            </form>
+            <form action="/delete-list" method="POST">
+                <button style="font-size: 11px;" name="list_name" value="<%= ele.list_name %>">❌</button>
+            </form>
+        </div>
+        <%}) %>
+    </div>
+    <% } %>
+
+    <form action="/list" method="POST">
+        <input type="text" name="custom_name" placeholder="add new list">
+        <button type="submit">Add</button>
+    </form>
+
+
+    <form class="task-form" action="/add" method="POST">
+
+        <label for="task">Add your To-do's 👇</label>
+        <textarea name="task" id="desc" cols="30" rows="10" placeholder="about your task"></textarea>
+
+        <button type="submit">Add</button>
+
+    </form>
+
+    <% if(locals.tasks && tasks.length) { %>
+    <h1><%= list_name %></h1>
+    <div class="container">
+        <% for( let i = 0; i < tasks.length; i++ ) { %>
+        <div class="to-do">
+            <p><%= tasks[i].task %></p>
+
+            <form action="/delete" method="POST">
+                <input type="hidden" name="task_id" value="<%= tasks[i]._id %>">
+                <button type="submit">Delete</button>
+            </form>
+
+        </div>
+        <% } %>
+    </div>
+    <% } else { %>
+    <h1>Add To-Do's</h1>
+    <% } %>
+</body>
+
+</html>
