@@ -9,6 +9,4 @@ db.connectToDatabase().then(() => {
     })
 })
 
-console.log(process.env.PORT)
-
 app.use("/", serverRoutes);
