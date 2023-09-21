@@ -10,11 +10,15 @@
 
 <body>
 
+    <header>
+        To Do App
+    </header>
+
     <% if(locals.custom_lists) {%>
     <div class="list-names">
         <% custom_lists.forEach((ele)=>{%>
         <div class="list">
-            <form class="list" action="/list" method="GET">
+            <form action="/list" method="GET">
                 <button name="list_name" value="<%= ele.list_name %>"><%= ele.list_name %></button>
             </form>
             <form action="/delete-list" method="POST">
@@ -45,11 +49,16 @@
     <div class="container">
         <% for( let i = 0; i < tasks.length; i++ ) { %>
         <div class="to-do">
-            <p><%= tasks[i].task %></p>
+
+
+            <form action="/save" method="POST">
+                <textarea name="taskedit" id="" cols="30" rows="5"><%= tasks[i].task %></textarea>
+                <button class="edit" name="task_id" value="<%= tasks[i]._id %>">Save</button>
+            </form>
 
             <form action="/delete" method="POST">
                 <input type="hidden" name="task_id" value="<%= tasks[i]._id %>">
-                <button type="submit">Delete</button>
+                <button class="delete" type="submit">Delete</button>
             </form>
 
         </div>
@@ -58,6 +67,7 @@
     <% } else { %>
     <h1>Add To-Do's</h1>
     <% } %>
+    <script src="../script.js"></script>
 </body>
 
 </html>

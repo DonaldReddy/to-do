@@ -51,6 +51,15 @@ router.post("/delete", async (req, res) => {
     await List.findOneAndUpdate({ list_name: current_list }, { $pull: { tasks: { _id: req.body.task_id } } });
     res.redirect("/");
 })
+
+router.post("/save", async (req, res) => {
+    let id = req.body.task_id;
+    let task = req.body.taskedit;
+    console.log(id, task)
+    await List.findOneAndUpdate({ "list_name": current_list, "tasks._id": new mongoose.Types.ObjectId(id) }, { $set: { "tasks.$.task": task } });
+    res.redirect("/")
+})
+
 // Post request to add to-do into current list.
 router.post("/add", async (req, res) => {
     let task = req.body.task;
